@@ -1,0 +1,178 @@
+res/values/strings.xml
+
+\<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mad6</string>
+    <string name="heading">UI With All Views</string>
+    <string name="example_button">Click Me</string>
+    <string name="checkbox_example">Checkbox Example</string>
+    <string name="togglebutton_example">Toggle Button</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="radiobutton_1">Arts</string>
+    <string name="radiobutton_2">Science</string>
+    <string name="radiobutton_3">Commerce</string>
+    <string name="todo">Image Button</string>
+</resources>
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/heading" />
+
+    <Button
+        android:id="@+id/buttonExample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/example_button" />
+
+    <CheckBox
+        android:id="@+id/checkBoxExample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_example" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/togglebutton_example"
+        android:textOn="@string/on"
+        android:textOff="@string/off"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroupExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/radiobutton_1" />
+
+        <RadioButton
+            android:id="@+id/radioBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radiobutton_2" />
+
+        <RadioButton
+            android:id="@+id/radioBtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radiobutton_3" />
+
+    </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/imageButtonExample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_add_ic_call_24"
+        android:contentDescription="@string/todo" />
+
+</LinearLayout>
+
+MainActivity.java
+
+package com.example.Mad6;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    CheckBox exampleCheckBox;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button example = findViewById(R.id.buttonExample);
+        exampleCheckBox = findViewById(R.id.checkBoxExample);
+        RadioGroup exampleRadioGroup = findViewById(R.id.radioGroupExample);
+        ToggleButton exampletoggleButton = findViewById(R.id.toggleButtonExample);
+        ImageButton exampleImageButton = findViewById(R.id.imageButtonExample);
+
+        example.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        exampleImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Calling Image button", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        exampletoggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (exampletoggleButton.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "ON Button clicked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "OFF Button clicked", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        exampleCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(getApplicationContext(), "Checked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Unchecked", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        exampleRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedButtonId) {
+                if (checkedButtonId == R.id.radioBtn1) {
+                    Toast.makeText(getApplicationContext(), "Course selected-Arts", Toast.LENGTH_SHORT).show();
+                }
+                if (checkedButtonId == R.id.radioBtn2) {
+                    Toast.makeText(getApplicationContext(), "Course selected-Science", Toast.LENGTH_SHORT).show();
+                }
+                if (checkedButtonId == R.id.radioBtn3) {
+                    Toast.makeText(getApplicationContext(), "Course selected-Commerce", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+Don't forget: add the baseline_add_ic_call_24 vector icon to drawable first 
+(right-click drawable → New → Vector Asset → pick a call icon → name it exactly baseline_add_ic_call_24),
+otherwise you'll hit the same resource-not-found error as before.
