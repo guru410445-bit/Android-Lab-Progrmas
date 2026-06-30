@@ -1,0 +1,82 @@
+activity_main.xml (res/layout/activity_main.xml)
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click on Menu" />
+
+</LinearLayout>
+
+res/menu/opt_menu.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mad7.MainActivity">
+
+    <item
+        android:title="New"
+        android:id="@+id/option1" />
+    <item
+        android:title="Save"
+        android:id="@+id/option2"/>
+    <item
+        android:title="Search"
+        android:id="@+id/option3"/>
+
+</menu>
+
+MainActivity.java
+
+package com.example.mad7;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.opt_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int item_id = item.getItemId();
+        if (item_id == R.id.option1) {
+            Toast.makeText(this, "Opening new file", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (item_id == R.id.option2) {
+            Toast.makeText(this, "Saving file", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (item_id == R.id.option3) {
+            Toast.makeText(this, "Searching file", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+AndroidManifest.xml 
+
+android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
